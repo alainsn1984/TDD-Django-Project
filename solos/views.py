@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import DetailView
 from .models import Solo
 # Create your views here.
 
@@ -14,3 +15,6 @@ def index(request):
         context['solos'] = solos_queryset
             
     return render(request,template_name='solos/index.html', context=context)
+
+class SoloDetailView(DetailView):
+    pass

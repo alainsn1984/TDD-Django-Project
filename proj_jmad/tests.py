@@ -80,4 +80,6 @@ class StudentTesCase(LiveServerTestCase):
         # He also sees the start time and end time of the solo.
         self.assertEqual(self.browser.find_element(By.ID,'#jmad-start-time').text,'2:06')
         self.assertEqual(self.browser.find_element(By.ID,'#jmad-end-time').text,'4:01')
+        import pdb; pdb.set_trace()
+        self.assertEqual(self.browser.current_url, '{}/solos/2/'.format(self.live_server_url))
         self.fail('Incomplete Test')
