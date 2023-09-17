@@ -5,20 +5,28 @@ from solos.models import Solo
       
 
 
-class IndexViewTestCase(TestCase):
+
+class SoloBaseTestCase(TestCase):
     
     def setUp(self):
         self.factory = RequestFactory()
-        self.drum_solo = Solo.objects.create(
-            instrument='Guitar',
-            artist='Ricardo Arjona',
-            track='El Problema'
-        )
-        self.bass_solo = Solo.objects.create(
-            instrument='saxphone',
-            artist='Coltrane',
-            track='Mr. PC'
-        )
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.drum_solo = Solo.objects.create(instrument='drums', artist='Rich', track='Bugle Call Rag')
+        cls.sax_solo = Solo.objects.create(instrument='saxophone', artist='Coltrane', track='Mr. PC')
+
+class IndexViewTestCase(SoloBaseTestCase):
+    
+    def setUp(self):
+        self.factory = RequestFactory()
+        
+    # @classmethod
+    # def setUpClass(cls):
+    #     super().setUpClass()
+    #     cls.drum_solo = Solo.objects.create(instrument='Guitar',artist='Ricardo Arjona',track='El Problema')
+    #     cls.bass_solo = Solo.objects.create(instrument='saxphone',artist='Coltrane',track='Mr. PC')
         
     def test_index_view_basic(self):
         """
@@ -39,13 +47,13 @@ class IndexViewTestCase(TestCase):
         solos = response.context['solos']
         self.assertIs(type(solos), QuerySet)
         self.assertEqual(len(solos), 2)
-        self.assertEqual(solos[0].artist, 'Ricardo Arjona')
+        self.assertEqual(solos[0].artist, 'Rich')
         
-class SoloViewTest(TestCase):
+class SoloViewTest(SoloBaseTestCase):
     
     def setUp(self):
         self.factory = RequestFactory()
-    
+        
     def test_base(self):
         """Test that a solo view return a 200 response, uses
            the correct template and has a correct context

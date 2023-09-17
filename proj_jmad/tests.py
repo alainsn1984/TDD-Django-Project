@@ -67,7 +67,7 @@ class StudentTesCase(LiveServerTestCase):
         second_artist_input = self.browser.find_element(By.ID, value='jmad-artist')
         second_artist_input.send_keys('Cannonball Adderley')
         self.browser.find_element(By.CSS_SELECTOR, 'form button').click()
-        second_search_results = self.browser.find_elements(By.CSS_SELECTOR,'.jmad-search-result a')
+        second_search_results = self.browser.find_elements(By.CSS_SELECTOR,'.jmad-search-result')
         self.assertEqual(len(second_search_results), 2)
         # He clicks on a search result.
         second_search_results[0].click()
