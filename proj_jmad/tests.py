@@ -1,5 +1,7 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -7,7 +9,7 @@ from selenium.webdriver.common.keys import Keys
 class StudentTesCase(LiveServerTestCase):
     
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser =  webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.browser.implicitly_wait(2)
     
     def tearDown(self):
