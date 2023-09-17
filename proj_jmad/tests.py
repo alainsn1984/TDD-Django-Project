@@ -1,7 +1,10 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
+#from selenium.webdriver.chrome.service import Service as ChromeService
+#from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
@@ -9,7 +12,7 @@ from selenium.webdriver.common.keys import Keys
 class StudentTesCase(LiveServerTestCase):
     
     def setUp(self):
-        self.browser =  webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        self.browser =  webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
         self.browser.implicitly_wait(2)
     
     def tearDown(self):
@@ -20,7 +23,9 @@ class StudentTesCase(LiveServerTestCase):
         Test that a user can search for solos
         """
         home_page = self.browser.get(self.live_server_url + '/')
-        brand_element = self.browser.find_element(By.CSS_SELECTOR,'.navbar-brand')
+        brand_element = self.browser.find_element(By.CLASS_NAME, 'navbar-brand')
+        
+        #brand_element = self.browser.find_element(By.CSS_SELECTOR,'.navbar-brand')
         self.assertEqual('JMAD',brand_element.text)
         self.fail('Incomplete Test')
         
