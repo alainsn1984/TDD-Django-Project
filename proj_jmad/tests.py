@@ -8,13 +8,28 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+from solos.models import Solo
 
 class StudentTesCase(LiveServerTestCase):
     
     def setUp(self):
         self.browser = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         self.browser.implicitly_wait(2)
-    
+        self.solo1 = Solo.objects.create(
+            instrument='saxophone',
+            artist='John Coltrane',
+            track='My Favorite Things'
+        )
+        self.solo2 = Solo.objects.create(
+            instrument='saxophone',
+            artist='Cannonball Adderley',
+            track='All Blues'
+        )
+        self.solo3 = Solo.objects.create(
+            instrument='saxophone',
+            artist='Cannonball Adderley',
+            track='Waltz for Debby'
+        )
     def tearDown(self):
         self.browser.quit()
     

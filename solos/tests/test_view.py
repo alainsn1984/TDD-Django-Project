@@ -36,5 +36,5 @@ class IndexViewTestCase(TestCase):
         response = self.client.get('/', {'instruments':'drums'})
         solos = response.context['solos']
         self.assertIs(type(solos), QuerySet)
-        self.assertEqual(len(solos), 1)
+        self.assertEqual(len(solos), 2)
         self.assertEqual(solos[0].artist, 'Ricardo Arjona')
