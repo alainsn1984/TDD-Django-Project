@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
 from .models import Solo
-# Create your views here.
+
 
 def index(request):
     context = {'solos': [] }
@@ -17,4 +17,5 @@ def index(request):
     return render(request,template_name='solos/index.html', context=context)
 
 class SoloDetailView(DetailView):
-    pass
+    model = Solo
+    template_name = 'solos/solo_detail.html'
