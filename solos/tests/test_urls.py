@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls  import resolve
 
 
-from solos.views import index
+from solos.views import index, SoloDetailView
 
 
 class SolosURLsTestCase(TestCase):
@@ -19,6 +19,6 @@ class SolosURLsTestCase(TestCase):
         """Test that url for SoloDetail resolves 
            to the correct view function
         """
-        solo_detail = resolve('/solos/1') 
-        self.assertEqual(solo_detail.func.__name__, 'SoloDetailView')
-        self.assertDictEqual(solo_detail.kwargs['pk'], '1')
+        view = resolve('/solos/1/') 
+        self.assertEqual(view.func.__name__, SoloDetailView.as_view().__name__)
+        self.assertEqual(view.kwargs['pk'], '1')
